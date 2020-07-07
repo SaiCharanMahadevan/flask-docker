@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  flaskapp:
+    build: ./flaskapp-docker # can do this directly instead of adding context and docker file separately
+    ports: # need to explicitly specify ports if using "bridge"
+      - "8000:8000"
+      - "80:80"
+    environment:
+      - SERVER_NAME=0.0.0.0
+    network_mode: bridge # "host" is only applicable for ubuntu -> container network is not isolated from the host or the system network
+    # "bridge" ensures that the network is isolated
+    # "overlay" connects multiple docker dameons together
