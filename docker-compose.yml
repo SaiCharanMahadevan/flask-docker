@@ -6,8 +6,15 @@ services:
     ports: # need to explicitly specify ports if using "bridge"
       - "8000:8000"
       - "80:80"
-    environment:
-      - SERVER_NAME=0.0.0.0
+    # environment:
+    #   - SERVER_NAME=0.0.0.0
     network_mode: bridge # "host" is only applicable for ubuntu -> container network is not isolated from the host or the system network
     # "bridge" ensures that the network is isolated
     # "overlay" connects multiple docker dameons together
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    environment:
+      - SERVER_NAME=0.0.0.0
+    restart: always
+    network_mode: host
